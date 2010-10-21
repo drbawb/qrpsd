@@ -1,0 +1,15 @@
+- title "Skill"
+
+%p
+  %strong Name:
+  =h @skill.name
+%p
+  %strong Description:
+  =h @skill.description
+
+%p
+  = link_to "Edit", edit_skill_path(@skill)
+  |
+  = link_to "Destroy", @skill, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", skills_path

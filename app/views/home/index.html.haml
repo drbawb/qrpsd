@@ -1,0 +1,43 @@
+%p
+  -if user_signed_in?
+    You can perform the following:
+    %p
+      We recommend opening the chat (join channel #soggy)!
+      =link_to "Chatroom (right click, new tab)", "http://irc.soggymilk.com:9090"
+    %p
+      -if can? :create, Roll
+        =link_to "Roll Dice", new_roll_path
+        %br
+      -if can? :index, Character
+        =link_to "View Characters List", characters_path
+        %br
+      -if can? :show, Campaign
+        =link_to "Show/Create Campaigns", campaigns_path
+        %br
+      -if can? :show, current_user
+        =link_to "Show your profile", user_path(current_user)
+        %br
+      -if can? :show, Grid.find_by_id(1)
+        =link_to "Show Grid #1", grid_path(Grid.find_by_id(1))
+        %br
+:markdown
+  ## Welcome to qRPSd on Rails
+  
+  qRPSd on Rails is a collection of "general-purpose" GM/DM tools.  
+  We aim to be "game-agnostic" - however we focus our development efforts towards supporint 3 major systems:
+  
+  -   qRPS - "a generic role playing system that relies on player-driven trait definitions"
+  -   D&amp;D (our toolset is meant to aid in playing 3.0/3.5e based on the SRD)
+  -   GURPS (an oldie but a goodie!)
+
+  GURPS and D&amp;D are trademarked by their respective owners (Steve Jackson Games, and Wizards of the Coast)
+  
+  All user submitted content is copyrighted by the user.  
+  As such you agree that you do in fact have legal rights to all content submitted.  
+  Users found infringing copyrights will be suspensded without furhter notice.  
+  As this site is under development, no formal terms of service have been published.
+  You agree to all terms of service located at our forums <http://soggymilk.com/forums>.
+  
+  &copy; Copyright Robbie Straw, 2010. All rights reserved.  
+  I'm in your base, stealin your pylons.
+

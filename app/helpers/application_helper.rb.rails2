@@ -1,0 +1,39 @@
+# Methods added to this helper will be available to all templates in the application.
+module ApplicationHelper
+	def loginh
+	  xm = Builder::XmlMarkup.new(:indent=>2)
+	  xm.ul('class' => 'right') {
+	    if user_signed_in?
+              xm.li {
+                xm.text "Welcome, #{current_user.email}"
+              }
+              xm.li {
+                xm.a("Logout", :href => destroy_user_session_path, :class => 'right')
+              }
+            else
+              xm.li {
+                xm.a("Login", :href => new_user_session_path)
+              }
+              
+              xm.li {
+                xm.a("Register", :href => new_user_registration_path, :class => 'right')
+              }
+            end
+          }
+      	end
+	
+	def navh(links)
+	   #Expects: [['Human Name','relative path'] ..]; relative path should be generated with _path methods
+	   #We use arrays to preserve insertion orders; will use hashes in Ruby 1.9.1 when we get there
+	   return_string = "<ul>"
+	   
+	   
+	   links.each do |v|
+	      li_string = "<li>#{link_to v[0], v[1]}</li>"
+	      return_string << li_string   
+      end
+      
+	   return_string << "</ul>"
+	   return return_string
+   end
+end

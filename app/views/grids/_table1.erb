@@ -1,0 +1,9 @@
+<%- unplaced_tokens = @grid.unplaced
+ placed_tokens = @grid.placed -%>
+  <table id="table1" class="grid">
+   	<tr>
+   	    <%-unplaced_tokens.each do |uptoken| -%>
+             <td><div class="drag clone" id="<%=h uptoken[:id]%>"><%=h uptoken[:name] %></div></td>
+         <%-end-%>
+     </tr>
+   </table>

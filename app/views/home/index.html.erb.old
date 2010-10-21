@@ -1,0 +1,46 @@
+<% if can? :destroy, UserSession %>
+   You are logged in and can perform the following: <br />
+   <% if can? :create, Roll %>
+      <%= link_to "Roll Dice", new_roll_path %><br />
+   <% end %>
+   <% if (can? :show, Grid) && (can? :test, Grid) %>
+      <%= link_to "Grid #1", grid_path(Grid.find(1))%> <br />
+   <% end %>
+   <% if can? :index, Character %>
+      <%= link_to "View Characters List", characters_path %> <br />
+   <% end %>
+   <% if can? :show, Campaign %>
+      <%= link_to "Show/Create Campaigns", campaigns_path %>
+   <% end %>
+<% end %>
+
+<h1>Welcome to qRPSd on Rails</h1>
+The app is in production mode so this won't show up till restart
+qRPSd on Rails is a collection of "general-purpose" GM/DM tools. <br />
+We aim to be "game-agnostic" - however we focus our development efforts towards supporting 3 major systems:
+
+<ul>
+	<li>qRPS (soggyRPS) - a "generic role playing system that relies on player-driven trait definitions"</li>
+	<li>D&amp;D (our toolset is meant to aid in playing 3.0/3.5e, and some tools will aid in 4.0 campaigns as well)</li>
+	<li>GURPS</li>
+</ul>
+GURPS and D&amp;D are trademark/copyright their respective owners. None of our tools infringe upon their content nor violate their gaming licenses.<br />
+SoggyRPS is copyright Robert Straw, 2010. Until a license is created, you may not distribute any SoggyRPS content off-site.
+<br /><br />
+SoggyRPS (also known as qRPSd which refers to internal builds of the 
+software) is copyrighted software. This service is freely available to 
+use but NO source code, logos, and other copyrighted materials may be 
+used off-site. <br />
+Our site relies on user-submitted content - this content is copyright 
+their repsective owners. <br />
+If you do not agree to these terms please immediately discontinue use of 
+this service. <br />
+This service is provided free of charge by the copyright holder: Robert 
+Straw. <br />
+
+Here is a list of tools currently in development:<br />
+ <%= link_to "qRPSd Dice Query", new_roll_path %> (Allows you to query 
+various types of die in "rDML" (robbie's Dice Markup Language)<br />
+ qRPSd Dice Mailer (Mails results of said query)<br /><br />
+&copy; SoggyRPS is copyrighted software, Robert Straw, 2010<br />
+It may not be derived for any purpose (commercial/non.)

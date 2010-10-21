@@ -1,0 +1,100 @@
+%p
+  :markdown
+    ## Quick Announcement 9-27-10 @ way too late [early?] in the morning
+    Most of the stuff here has not been updated since I first started the app.
+    Not saying it's wrong, it's just poorly written / missing a lot of new features!
+    It is basically a placeholder for a true "about us" page that will be added when qRPSd hits the big
+    "0dot9 alpha beta bitch"-phase.
+
+    Anyways, I appreciate the interest, and feel free to read this! As I said, it's accurate. It's just
+    not the best "about us" page anymore!
+    ## Design
+    SoggyMilk's overall template was, for the most part, designed by the founder: Robbie Straw.
+    
+    I cannot take all the credit, however. A lot of mockup, and graphic design, is performed by ~jycius. You can find him over at DeviantArt.
+    He actually does not require me to give him any attribution, but I cannot thank him enough for the work he has put into our beautiful logos and to some extent our themes :-).
+    
+    The layout is meant to be very simple. I chose a blue color scheme because, personally, I can't stannd white backgrounds. I know some design nerds are gonna give me a whooping... but I'm a programmmmeeerrr! :-(
+    I will, eventually, offer switchable themes. Which is an advantage to the layout being so simple. It really isn't that hard to switch up the color scheme!
+    
+    For the most part, our documents all validate to XHTML 1.1 DTD and CSS2.1
+    I should note, however, that some sites using JavaScript extensively have a tendency to fail validation *after* the JavaScript is rendered.
+    This is basically becuase the JavaScript modifies the code, on the fly, and renders some nasty looking stuff.
+    We use some third party libraries, so I simply cannot avoid this.
+    
+    You should know that I take validation seriously... and I make every effort to keep this site *as close to valid* as humanly possible. Feel free to pit us against the validator, and if you notice any errors that can easily be fixed please contact me!
+    
+    #### Contributors
+    - [~jycius](http://jycius.deviantart.com/ "Jycius @ deviantart")
+    
+    ## Goal
+    SoggyRPS is the first 'serious' project being written by SoggyMilk.  
+    I believe in 'personal programming' - that is writing programs which solve a problem you, as a person, are experiencing.  
+    One problem that I could easily solve with a program is role-playing. Many of the casual RPers in my circle-of-frineds are not going to be here this summer.  
+    To solve this: create a website which presents the necessary tools to play a tabletop RPG.
+    
+    We have two goals. One is what I call "draft SoggyRPS" the other is "robocop SoggyRPS".  
+    draftRPS will be finished by August (hopefully.) It will include core functionality needed to *play the game.*  
+    It will require considerable 'pencil-and-paper' effort by the DM.
+    
+    robocopRPS will be finished by next August (give or take.) It will include add on functionality that will reduce the DM's workload.  
+    This is going to require serious database backend work, as we hope to track all the skills/stats on the site itself.  
+    I hope to section-off parts of SoggyRPS into plugins. That way sites can implement 'parts' of SoggyRPS.
+    
+    Overall the goal is to create more or less a fully functional site that allows you to play a tabletop RPG over the internet.  
+    I feel that the best way to achieve this goal is a modular system that can be built either in pieces, or run as a drop-in site.  
+    If you'd like to help drop me a line at <drbob@soggymilk.com> please. I could always use an extra set of hands. Particularly a more skilled set of hands.  
+    (It would be awesome if you happen to know version control / git - becuase man that stuff just goes over my head!)
+    
+    ## Licensing
+    At this time we SoggyRPS is purely proprietary. The source will not 
+    be released until it is under version control [Summer '10.]  
+    I do plan to release it under a BSD-like license which permits 
+    redistribution and modification, most likely for non-commercial use.
+    
+    The site itself is governed by our [terms](http://soggymilk.com/qrpsdrail/terms)
+    
+    ## Technology
+    So, you're probably not wondering what we're running under the hood.
+    Good news: I'm not going to bore you! :-)
+    
+    As I said earlier, the page is written in 100% valid XHTML 1.1 / CSS2.1 (with some bits of CSS3 supported only by the mega greatest browsers.)
+    We attempt to get the entire thing to degrade gracefully, and our validation does ocasionally get effed up by JavaScript - but *shrugs* what are ya gonna do?
+    
+    The backend to this site uses MySQL for a database engine to store all the data we collect. Think of it as a giant mother effing spreadsheet.
+    SoggyRPS is programmed entirely in Ruby on Rails. The rest of the site is generally written in PHP. As time permits, I'll be moving more and more of the site to Rails. Ruby is just a very pleasurable language to write in.
+    
+    We're on Ruby 1.9.1 (I believe) and Rails 2.3.5 (I know.)
+    The upgrade to Rails 3 is going to be a slow and painful one, but I'll get there.
+    
+    For versioning, we are currently experimenting with a locally owned and operated Git server :)
+    
+    ### About the Rails App
+    We use Authlogic for authentication, and CanCan for authorization.  
+    I plan on stripping this out, and perhaps using an OpenID auth 
+    solution, with Devise for authorization.  
+    Everyone basically has an OpenID at this point - its just a matter 
+    of making them realize it. I use several sites that support OpenID 
+    login, and they provide a pleasant experience. I want to do the same 
+    for my users.
+    
+    I also use the Haml gem, which allows me to write markup in 
+    beautiful Haml and use Markdown to format large blocks of text.  
+    At this time, SoggyRPS does not require any gems aside from what was 
+    already mentioned.  
+    
+    SoggyRPS is not modular, as it is very much designed to be a single 
+    'application.' -- I fail to see reason to convert things like the 
+    dice roller out into a plugin.  
+    If you would like to see any part of SoggyRPS extracted into a 
+    plugin, feel free to get in touch! I would be glad to help out.
+    
+    ## Contact
+    You can get ahold of me at the following internet mailing address. Please provide your own postage. <drbob@soggymilk.com>
+    
+    Please note that I decide which e-mail to read based on how awesome and descriptive the subject is. So make it both awesome, and yet incredibly detailed. Otherwise I won't get to your message until 12:54.
+    
+    You can follow me on Twitter, @macmnc.  
+    I promise to follow you back if you don't look like a spambot :-)!
+    
+    I believe that is all, peace homesters.

@@ -1,0 +1,28 @@
+<h1>Listing campaigns</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+	<th> Owned by: </th>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+
+<% @campaigns.each do |campaign| %>
+  <tr>
+    <td><%=h campaign.user_id %></td>
+	<td><%=h campaign.user.username %></td>
+    <td><%=h campaign.title %></td>
+    <td><%=h campaign.description %></td>
+    <td><%= link_to 'Show', campaign %></td>
+    <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+    <td><%= link_to 'Destroy', campaign, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New campaign', new_campaign_path %>
+<br />
+<%= link_to 'Back', root_path%>

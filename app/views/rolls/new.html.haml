@@ -1,0 +1,21 @@
+%h1 Welcome to DiceRoller 4000!
+:markdown
+  ### Notes
+  If zero dice objects are created from your query, it will not be stored.
+  This is merely an optimization, and you shouldn't take it personally.
+  The valid syntax is described below, if you follow these rules, you should be able to generate
+  at least one valid and parsable dice object!
+:markdown
+  ### Syntax
+  This form speaks rDML (robbie's Dice Markup Language) (v1.5)
+  Wanna learn to speak it? It's easy!
+  - You can use dice objects, or static numbers. For instance "\[1d4\]" or "1"
+  - You can use the keyword "is" to define a damage type. For instance "\[1d4\] is fire"
+  - You can chain keywords together with "+". For example "\[1d4\] is fire + \[3d20\] + 2 is magic bonus"
+  - The most complex exampe of a dice roll is this: "\[2d20\] is fire + \[1d8\] + 2 is magic bonus + 3"
+  > > This will roll 2x20-sided dice both labelled as fire, 1x8-sided die labelled as standard,
+  > > it will instantly give you a magic bonus of 2 (always 2), and a standard bonus of 3 (always 3.)
+  Give it a try below!
+  
+=render :partial => "new_form"
+=link_to 'Back', rolls_path

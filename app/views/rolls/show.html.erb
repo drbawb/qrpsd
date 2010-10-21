@@ -1,0 +1,29 @@
+Original Query: <%= @roll.query %>
+<br />
+<% @roll.resultarray.each do |die| %>
+  Total: <%= die[0] %><br />
+  Damage Type: <%= die[1] %> <br />
+  Individual Rolls: <br />  
+  <% die[2].each do |each_roll| %>
+    <%= each_roll %><br />
+  <% end %>
+  <br />  
+<% end %>
+
+<% form_for(@roll_new) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    
+  </p>
+  <p>
+    Query?<br />
+    <%= f.text_field :query %>
+	<br /><br />
+	Roll Types: Normal (GM + You see it), Secret (GM sees it), Lawls (Go's to your lawlz of fame)<br />
+	<%= select_tag "type_flag", options_for_select([["Normal", "0"],["Secret", "1"],["Lawl", "2"]]) %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

@@ -1,0 +1,36 @@
+%p
+  %b
+    Name:
+  =h @character.name
+
+%p
+  %b
+    Race:
+  =h @character.race
+  
+%p
+  %b
+    Class:
+  =h @character.char_class
+
+%p
+  %b
+    User:
+  =h @character.user.username
+
+-unless @character.skills.empty?
+  %b
+    Skills: 
+    %br
+  -@character.player_skills.each do |plskill|
+    %b
+      =h "#{plskill.skill.name}" 
+      %br
+    -unless plskill.level.nil?
+      =h "You have this skill at level #{plskill.level}"
+      %br
+    :markdown
+      #{plskill.skill.description}
+    %br
+    %br
+=link_to('Edit', edit_character_path(@character)) + " | " + link_to('Back', characters_path)

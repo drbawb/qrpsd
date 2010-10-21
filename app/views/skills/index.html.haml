@@ -1,0 +1,15 @@
+- title "Skills"
+
+%table
+  %tr
+    %th Name
+    %th Description
+  - for skill in @skills
+    %tr
+      %td= h skill.name
+      %td= h skill.description
+      %td= link_to 'Show', skill
+      %td= link_to 'Edit', edit_skill_path(skill)
+      %td= link_to 'Destroy', skill, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Skill", new_skill_path

@@ -1,0 +1,11 @@
+%table{:class => 'experiment', :border => "0", :cellpading => "0", :cellspacing => "0", :style => "background-image:url('#{image_path('grid_tiles/final.png')}'); width: 780px; height: 780px;"}
+  -for x in 0..25
+    %tr
+    -for y in 0..25
+      %td
+        -if (x > 5) and (y > 5) and (x < 8) and (y < 11)
+          =image_tag("tokens/mario.jpg")
+        -elsif (x > 20) and (y > 18) and (x < 23) and (y < 23)
+          =image_tag("tokens/mario.jpg")
+%p
+  Well that was interesting!

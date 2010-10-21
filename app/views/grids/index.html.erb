@@ -1,0 +1,6 @@
+Grids, and their corresponding campaign name, are listed below: <br /> <br />
+<%- @grids.each do |grid| -%>
+   <%= link_to "Grid ##{grid.id}", grid %> - <%=h grid.campaign.title %> <br />
+<%-end-%>
+<br />
+<%= link_to "Create a grid for campaigns you own", new_grid_path %>

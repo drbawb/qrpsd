@@ -1,0 +1,30 @@
+%h1
+  Editing Character
+
+=form_for @character do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :race
+    %br
+    = f.text_field :race
+  %p
+    = f.label :char_class
+    %br
+    = f.text_field :char_class
+  %p
+    - index = 0
+    =f.fields_for :player_skills do |ps|
+      =@skill_arr[index]
+      =ps.text_field :level
+      =ps.hidden_field :skill_id
+      -unless ps.object.new_record?
+        =ps.check_box '_destroy'
+        =ps.label '_destroy', 'Remove'
+      - index += 1
+      %br
+  %p
+    = f.submit

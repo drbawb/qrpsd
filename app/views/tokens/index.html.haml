@@ -1,0 +1,24 @@
+Welcome to the token control panel
+%br
+Listing all placed tokens for grid, in turn-order:
+%br
+%br
+=link_to "New Base Token", new_grid_token_path(@grid,Token.new)
+%table{:border => "1px"}
+  -@tokens.each do |token|
+    %tr
+      %td
+        ="#{token.character.name} at (#{token.tblrow},#{token.tblcol}) turn order: #{token.turn_order}"
+        %br
+          =form_for([@grid, token]) do |f|
+            =f.text_field :hp, :size => "5"
+            =f.submit
+        -if @tokens.first == token
+          =button_to "Down", down_grid_token_path(@grid, token), :method => :put
+        -elsif @tokens.last == token
+          =button_to "Up", up_grid_token_path(@grid, token), :method => :put
+        -else
+          =button_to "Up", up_grid_token_path(@grid, token), :method => :put
+          =button_to "Down", down_grid_token_path(@grid, token), :method => :put
+
+

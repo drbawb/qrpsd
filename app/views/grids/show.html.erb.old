@@ -1,0 +1,42 @@
+<% javascript_tag do %>
+<%= "var AUTH_TOKEN=encodeURIComponent(#{form_authenticity_token.inspect});" %>
+<%= "var GRID_ID = '#{@grid.id}';" %>
+<%= "var ROOT_PATH = '#{root_path}';" %>
+<% end %>
+<div id="roll_section">
+	<%= render :partial => "rolls/slim_new" %>	
+</div>
+<div id="debug">
+  Weird debug messages may show up here from time to time.
+</div>
+<br /><br />
+<div id="drag">
+   <%-
+       unplaced_tokens = @grid.unplaced
+       placed_tokens = @grid.placed
+   -%>
+   <br /><br />
+   Wastepaper Basket: (Only the admin can remove tokens.)
+   <table id="trashcan" class="grid">
+     <tr>
+         <td class="trash"><div class="trash">Drag items over me to obliterate them from existence.</div></td>
+     </tr>    
+   </table>
+   
+   Base Tokens: (soon to be admin only)
+   <table id="table1" class="grid">
+   	<tr>
+   	    <%-unplaced_tokens.each do |uptoken| -%>
+             <td><div class="drag clone" id="<%=h uptoken[:id]%>"><%=h uptoken[:name] %></div></td>
+         <%-end-%>
+     </tr>
+   </table>
+   <table id="table2" class="grid_magic">
+      <%= render :partial => "table" %>
+   </table>
+   
+   <div id="obj_new"></div>
+   <br />
+</div>
+<div id="ohshit">haha no</div>
+<input type="button" value="Load" class="button" onclick="load('26', 'table1', '2_2_2*3_4_7')" title="Save timetable"/>

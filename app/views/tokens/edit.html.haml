@@ -1,0 +1,11 @@
+%h2
+  Editing token!
+=form_for [@grid,@token] do |f|
+  %p
+    =f.label :image
+    =f.text_field :image_url
+  %p
+    =f.label :turn_order
+    =f.text_field :turn_order
+  %p
+    =f.submit

@@ -1,0 +1,27 @@
+=javascript_tag do
+  = "var AUTH_TOKEN=encodeURIComponent(#{form_authenticity_token.inspect});".html_safe
+  = "var GRID_ID = '#{@grid.id}';".html_safe
+  = "var ROOT_PATH = '#{root_path}';".html_safe
+I am in fact using HAML
+#roll_section
+  =render :partial => "rolls/new_remote"
+#debug
+  Weird debug messages may show up here from time to time.
+%br
+%br
+#drag
+  - unplaced_tokens = @grid.unplaced
+  - placed_tokens = @grid.placed
+  %br
+  %br
+  %table{:id => 'trashcan', :class => 'grid'}
+    %tr
+      %td{:class => 'trash'}
+        %div{:class => 'trash'}
+          Drag items to obliterate them
+
+  Base Tokens: (soon to be admin only.)
+  =render :partial => 'table1'
+  %table{:id => 'table2', :class => 'grid_magic'}
+    =render :partial => 'table'
+  %div#obj_new

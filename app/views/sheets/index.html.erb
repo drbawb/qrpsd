@@ -1,0 +1,20 @@
+<h1>Listing sheets</h1>
+
+<table>
+  <tr>
+    <th>Download</th>
+  </tr>
+
+<% @sheets.each do |sheet| %>
+  <tr>
+    <td><%=h sheet.sheet_file_name %></td>
+    <td><%= link_to 'Show', sheet %></td>
+    <td><%= link_to 'Edit', edit_sheet_path(sheet) %></td>
+    <td><%= link_to 'Destroy', sheet, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New sheet', new_sheet_path %>

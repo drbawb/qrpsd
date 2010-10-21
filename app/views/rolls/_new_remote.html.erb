@@ -1,0 +1,20 @@
+<% form_for@roll, :remote => true do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <input type="button" value="[1d4]" id="wrapDiceButton" /> (Will wrap selected text in "[ ]", or will insert [1d4] and select the 1d4 for you.)
+  </p>
+  <p>
+    Query?<br />
+    <%= f.text_field :query %>
+	<br /><br />
+	Roll Types: Normal (GM + You see it), Secret (GM sees it), Lawls (Go's to your lawlz of fame)<br />
+	<%= select_tag "type_flag", options_for_select([["Normal", "0"],["Secret", "1"],["Lawl", "2"]]) %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+  <div id="testDiv">
+
+  </div>

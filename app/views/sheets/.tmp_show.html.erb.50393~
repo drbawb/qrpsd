@@ -1,0 +1,8 @@
+<p>
+  <b>Title:</b>
+  <%= link_to 'Download', @sheet_rel %>
+</p>
+
+
+<%= link_to 'Edit', edit_sheet_path(@sheet) %> |
+<%= link_to 'Back', sheets_path %>

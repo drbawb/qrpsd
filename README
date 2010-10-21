@@ -1,0 +1,93 @@
+Quantum Roleplaying System Daemon (qRPSd)
+
+LICENSE:
+Copyright (c) 2010, Robert Straw
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+
+
+Introduction:
+(If you're looking to implement this, you should read "Shortcomings:" before even attempting to install this software)
+
+qRPSd has been created for the sole purpose of playing classic tabletop RPGs online.
+This is "version 1" and provides the following key aspects:
+1) An interactive "battle field" / "game mat" (coloiqually referred to as "the grid.")
+2) A dice roller that allows for basic statistics tracking through the in-game interface.
+3) Ability to create and manage RPG entities (characters, campaigns, grids, tokens)
+4) Permissions to help separate DM (daemon-master) accessible information from player accessible information.
+5) Integration with a chat environment (see "IRC:" / "DRB:")
+6) Ability to store uploaded files (mainly: character sheets in the form of an excel spreadsheet.)
+
+As of this release, I believe it meets the requirements initially laid out for our "version 1" release.
+(Version 1 is in quotes because this is still very much alpha software. No work has been made to simplify
+the installation/distribution of qRPSd at this point in time.)
+--
+
+Planned features:
+qRPSd will eventually evolve into an engine, of sorts.
+I hope to create a parser that will take in a ruleset file, and create a playable game, in the form of a rails application.
+In essence, if you convert a tabletop RPG's basic rules into this ruleset language, you can play it on qRPSd.
+This is referred to as "version 2" of qRPSd.
+
+There will be a separate fork of this project devoted to work on the engine.
+
+--
+
+IRC:
+I host my own IRC server along with an IRC chatbot.
+This game directly interfaces with that chatbot using distributed ruby.
+This is in no way required to play the game, and as such I will be extracting the functionality out to a configuration file.
+
+If you'd like to interface with the game in a similar way, I plan to provide an API defining
+the actions you can respond to.
+
+All you'll need is a listener capable of implementing the DRb protocol.
+--
+
+Shortcomings:
+These are known shortcomings of this release. As I said earlier, no effort has been made
+towards the installation/distribution of this software.
+
+1) No installation script:
+You will have to create your own database.yml
+You will have to set up Devise to use your own mailer / mailing address.
+-Reason: I host this in two locations, so my .gitignore excludes database.yml
+
+2) You will have to dump the current schema.rb into a database
+-Reason: No installation script
+
+3) You will have to manually set the "role" on users:
+-If you set role to "admin", they can pretty much have free-reign of the application
+-If you set role to "user", they can have free-reign over anything they've created.
+-Reason: Not enough time, this'll be added very shortly.
+
+4) Some things are just not accessible through the interface, you /have/ to know their resource URL:
+-Reason: Not enough time, I'll be revamping the UI to make it dead-simple very shortly.
+-Things I know need to be accessed via URL:
+- /grids/new
+- /grids/:grid_id/show (only :grid_id 1 is shown on the homepage, and this relies on its existence / your ability to view it)
+- /grids/:grid_id/tokens (DM token management interface. Hidden because the permissions aren't complete yet.)
+
+5) No DB Seed, you will have to "sign up" for the first account, and as mentioned above, manually mark it as "role: admin" via editing the DB.
+
+
+
+

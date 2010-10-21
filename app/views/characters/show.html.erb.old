@@ -1,0 +1,43 @@
+<p>
+  <b>Name:</b>
+  <%=h @character.name %>
+</p>
+
+<p>
+  <b>Race:</b>
+  <%=h @character.race %>
+</p>
+
+<p>
+  <b>Class:</b>
+  <%=h @character.char_class %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @character.user.username %>
+</p>
+
+<p>
+  <b>Skills:</b>
+  <% @character.player_skills.each do |plskill| %>
+    <strong><%=h "#{plskill.skill.name}" %></strong><br />
+    <% unless plskill.level.nil? %>
+      <%=h "You have this skill at level #{plskill.level}"%> <br />
+    <% end %>
+    <%=h plskill.skill.description %><br />
+    <br />
+  <% end %>
+</p>
+
+
+<p>
+  The character has uploaded the following sheets
+  <% @character.sheets.each do |sheet| %>
+    Oh dohoho this is the filename: <%= sheet.sheet_file_name%> <br />
+    Here is the file: <%= link_to 'Download', sheet.sheet.url %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_character_path(@character) %> |
+<%= link_to 'Back', characters_path %>

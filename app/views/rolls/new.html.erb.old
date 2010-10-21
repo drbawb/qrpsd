@@ -1,0 +1,13 @@
+<h1>Welcome to DICEROLLER 4000!</h1>
+Note: Some debug stuff is enabled, if you receive a "0" as a dice result, it means the roll failed for some reason (bad input?)
+<br /><br />
+This form speaks rDML 1.5! Wanna learn to speak it? It's easy! <br />
+We start with some die, they look like this: [1d6] <br />
+Perhaps you want to do a specific kind of damge, like so: [1d20] is fire <br />
+You can chain die together, like this: [1d8] + [2d6] is fire <br />
+You can also add in static bonuses, like so: [1d6] + [2d20] is fire + 2 is magic <br />
+Let's recap: You can have a dice object ([1d4]) or a number (1); you can specify damage with keyword "is", and you can chain queries together with "+"! <br />
+Give it a go: <br />
+<%= render :partial => "slim_new" %>
+
+<%= link_to 'Back', rolls_path %>

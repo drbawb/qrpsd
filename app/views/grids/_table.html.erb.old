@@ -1,0 +1,43 @@
+   <%-
+       unplaced_tokens = @grid.unplaced
+       placed_tokens = @grid.placed
+   -%>
+<!--   
+<%-placed_tokens.each do |row| -%>
+  <tr>
+  <%-row.each do |col|-%>
+      <%-if col.class == Token -%>
+          <td><div id="<%=h col.id %>" class="drag"><%= image_tag("tokens/#{col.image_url}") %></td>
+      <%-elsif col.class == String -%>
+          <td class="mark"><%=h col %></td>
+      <%-else-%>
+          <td></td>
+      <%-end-%>
+  <%-end-%>
+  </tr>
+<%-end-%>
+-->
+
+<%- x = 0; y = 0; placed_tokens.each do |row| -%>
+  
+    
+   <tr>
+  <%-row.each do |col|-%>
+      <%- xystring = "n_#{x}_#{y}" -%>
+      <%-if col.class == Token -%>
+          <td id="<%= xystring %>"><div id="<%=h col.id %>" class="drag"><%= image_tag("tokens/#{col.image_url}") %></div></td>
+      <%-elsif col.class == String -%>
+          <td id="<%= xystring %>" class="mark"><%=h col %></td>
+      <%-else-%>
+          <td id="<%= xystring %>"> </td>
+      <%-end-%>
+      <%- y += 1 -%>
+  <%-end-%>
+  </tr>
+  <%- x += 1; y = 0 -%>
+  
+<%-end-%>
+
+<script type="text/javascript">
+   REDIPS.drag.init()
+</script>

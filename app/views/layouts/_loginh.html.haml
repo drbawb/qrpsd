@@ -1,0 +1,12 @@
+%ul{:class => 'right'}
+  -if user_signed_in?
+    %li
+      %text
+        "Welcome, #{current_user.username}"
+    %li
+      %a(class="right" title="Logout" href=destroy_user_session_path) Logout
+  -else
+    %li
+      %a(title="Login" href=new_user_session_path) Login
+    %li
+      %a(class="right" title="Register" href=new_user_registration_path) Signup

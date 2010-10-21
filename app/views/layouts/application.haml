@@ -1,0 +1,26 @@
+!!! 1.1
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}/
+    =stylesheet_link_tag 'main'
+    %title<
+      -if defined? @title
+        =@title
+      -else
+        qRPSdrail by SoggyRPS
+  %body
+    .logobox
+      %a{:href => "#{root_path}", :title => 'Home'}
+        %img{:src => image_path('qrpsd.png'), :alt => 'SoggyMilk Logo'}
+    .wrap
+      .header
+        =navh [['Home', root_path], ['About', about_path]]
+        =loginh
+      #subheader
+        Welcome to qRPSd! I have nothing to put here yet, but this nifty space below the menu bar should come in handy!
+      .content
+        - if flash[:warning] || flash[:notice] || flash[:error]
+          #flash
+            -flash.each do |name,msg|
+              =msg
+        =yield

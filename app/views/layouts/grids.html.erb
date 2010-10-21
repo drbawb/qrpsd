@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <%= stylesheet_link_tag("jquery.qtip") %>
+  <%= javascript_include_tag 'drag', 'jquery', 'jquery.qtip', 'jquery.caret', 'rails', 'dice_roll', 'grid' %>
+  <title>Grid</title>
+  <style type="text/css">
+        .overflClass {
+            width: 95%;
+            height: 95%;
+            overflow:scroll;
+        }
+        #drag {
+           display: table;
+           table-layout: auto;
+        }
+        table.grid {
+            border-width: 1px 1px 1px 1px;
+            border-style: solid solid solid solid;
+            border-color: gray gray gray gray;
+            background-color: white;
+        }
+        table.grid th {
+            border-width: 1px 1px 1px 1px;
+            border-style: solid solid solid solid;
+            border-color: black black black black;
+            background-color: white;
+            -moz-border-radius: 0px 0px 0px 0px;
+        }
+        table.grid td {
+            border-width: 1px 1px 1px 1px;
+            border-style: solid solid solid solid;
+            border-color: black black black black;
+            background-color: white;
+            -moz-border-radius: 0px 0px 0px 0px;
+            min-width: 50px;
+            min-height: 50px;
+        }
+        
+        table.grid_magic {
+            border-spacing: 0px;
+            border-collapse: collapse;
+            background: url('<%= image_path('grid_tiles/final.png') %>');
+        }
+        table.grid_magic tr {
+          height: 30px;
+          width: 30px;
+        }
+        table.grid_magic td {
+            padding: 0px;
+            background-color: transparent;
+            -moz-border-radius: 0px 0px 0px 0px;
+            min-width: 30px;
+            min-height: 30px;
+        }
+        
+        .drag{
+            position: relative;
+            border: 0px #000 solid;
+            width: 30px;
+        }
+    </style>
+</head>
+<body onload="REDIPS.drag.init()">
+
+<p style="color: green"><%= flash[:notice] %></p>
+<div id="content">
+  <%= yield %>
+</div>
+
+</body>
+</html>

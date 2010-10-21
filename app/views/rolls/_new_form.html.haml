@@ -1,0 +1,18 @@
+-form_for @roll do |f|
+  =f.error_messages
+  %p
+    %input#wrapDiceButton{:type => 'button', :value => '[1d4]'}
+  %p
+    Query?
+    %br
+    =f.text_field :query
+    %br
+    %br
+  %p
+    Roll Types: Normal (GM+You see it), Secret (GM Sees it), Lawls (Gos to lawls of fame)
+    %br
+    =f.select "type_flag", options_for_select([["Normal", "0"],["Secret", "1"],["Lawl", "2"]])
+  %p
+    =f.collection_select(:character_id, current_user.characters, :id, :name, options ={:prompt => "-Select a character"})
+  %p
+    =f.submit 'Create'
