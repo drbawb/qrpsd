@@ -5,12 +5,13 @@
     = javascript_include_tag 'jquery', 'jquery.caret', 'dice_roll'
     %title Rolls 
   %body
-    .logobox
-      %img{:src => image_path('qrpsd.png')}
     .wrap
       .header
-        =navh [['Home', root_path], ['About', about_path]]
-        =loginh 
+        .logobox
+          %img{:src => image_path('qrpsd.png')}
+        .nav
+          =navh [['Home', root_path], ['About', about_path]]
+          =loginh 
       .content
         - if flash[:warning] || flash[:notice] || flash[:error]
           #flash
