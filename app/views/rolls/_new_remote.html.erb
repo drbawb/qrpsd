@@ -9,6 +9,7 @@
 	<br /><br />
 	Roll Types: Normal (GM + You see it), Secret (GM sees it), Lawls (Go's to your lawlz of fame)<br />
 	<%= select_tag "type_flag", options_for_select([["Normal", "0"],["Secret", "1"],["Lawl", "2"]]) %>
+	<%= f.collection_select(:character_id, current_user.characters, :id, :name, options ={:prompt => "-Select a character"}) %>
   </p>
   <p>
     <%= f.submit 'Create' %>

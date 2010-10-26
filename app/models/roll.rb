@@ -3,12 +3,13 @@ class Roll < ActiveRecord::Base
   require 'drb'
   belongs_to :character
   serialize :resultarray
-
-
-  validates_presence_of :character, :message => "is required"
   
+  attr_accessible :query, :character, :type
+  attr_protected :dice #Dice objects will be stored in this instance variable; temporarily.
+  
+  validates_presence_of :character, :message => "is required"
   validates_presence_of :query, :message => "is required"
-
+  
   ## Stores and represents a dice object: <any> number of <similarly faced> dice. (i.e: 5x20-sided dice.)
   class Die
     attr_accessor(:num_sides, :num_dice, :str_type)
@@ -67,12 +68,21 @@ class Roll < ActiveRecord::Base
   # This is the format that the RollsController#show view is expecting to parse.
   #
   ## The dice are created but <b>not rolled</b> until this action is finished.
+  def validate
+	@dice = parse_query(self.query)
+	if @dice.length < 1
+	  errors.add_to_base("Could not generate any dice from input query!")
+	  return false
+	else
+      return true
+    end
+  end
+  
   def before_save
     #[[3, "standard", [3]], [7, "fire", [7]], ["4", "standard", ["4"]], ["8", "fire", ["8"]]]
     #query: "[1d4] + [1d8] is fire + 4 + 8 is fire"
     self.resultarray = []
-    dice = parse_query(self.query)
-    dice.each do |x|
+	@dice.each do |x|
       if x.class == Die
         self.resultarray << x.roll
       else

@@ -7,7 +7,7 @@ class RollsController < ApplicationController
 
   def index
     redirect_to new_roll_path
-		#respond_to do |format|
+    #  respond_to do |format|
     #  format.html # index.html.erb
     #  format.xml  { render :xml => @rolls }
     #end
@@ -29,8 +29,8 @@ class RollsController < ApplicationController
 
   # GET /rolls/1/edit
   def edit
-		flash[:notice] = 'Rolls are locked from being edited, sorry.'
-		redirect_to root_url
+    flash[:notice] = 'Rolls are locked from being edited, sorry.'
+    redirect_to root_url
   end
 
   # POST /rolls
@@ -39,14 +39,10 @@ class RollsController < ApplicationController
     def create
      @roll = Roll.new(params[:roll])
     respond_to do |format|
-      if request.xhr?
-        if @roll.save
-           render :layout => false
-        end
-      end
       if @roll.save
         flash[:notice] = 'Roll was successfully created.'
         format.html { redirect_to(@roll) }
+	format.js { render :layout => false }
         format.xml  { render :xml => @character, :status => :created, :location => @character }
       else
         format.html { render :action => "new" }

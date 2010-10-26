@@ -16,9 +16,8 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id], :include => :rolls)
-		@rolls = @user.rolls.find(:all, :conditions =>  "type_flag != '1'", :order => "created_at DESC")
-    @roll_type = %w{Normal Secret Lawlz}
-		respond_to do |format|
+	@rolls = @user.rolls	
+	respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
     end
