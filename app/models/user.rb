@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
 	has_many :characters, :dependent => :destroy
 	has_many :campaigns, :dependent => :destroy
-
+	has_many :rolls, :through => :characters
+	
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :username,  :password, :password_confirmation
 
