@@ -1,16 +1,20 @@
 /*
-* grid.js ? Copyright Robbie Straw, 2010. All Rights Reserved.
+* grid.js  Copyright Robbie Straw, 2010. All Rights Reserved.
 * This code implements some necessary functions to save gridstate, load gridstate, and periodically update gridstate
 * None of this code would work if it weren't for the awesome drag.js library and jQuery framework! :-)!
-* This code is not licensed for redistribution.
-* If you would like to use this code elsewhere, please contact the owner
+* This code shares the license embodying the entirety of the qRPSd project.
+* The latest licensing information can be found at http://github.com/drbawb/qrpsd
+* This code relies on:
+*  - jQuery (1.4.2)
+*  - "Drag and Drop Table Content" library @ http://www.redips.net/javascript/drag-and-drop-table-content/
+* ======================
 * Robbie Straw
 * drbob@soggymilk.com
 * OR
 * webtravesty@gmail.com
 *
 *
-* For use on qRPSdRail - [this comment block] updated 2010/09/29 
+* For use on qRPSd - [this comment block] updated 2010/10/26
 */
 
 var t; //Placeholder for a timeout
@@ -44,7 +48,7 @@ function load(size,table,query) {
                     row = token.tblrow; //Row is part 2
                     col = token.tblcol; //Col is part 3
                     $('#n_'+row+'_'+col).append("<div class='drag' id='"+id+"'><img src='"+pic+"' alt='"+pic+"' /></div>");
-                    $('#' + id).qtip({
+                    $('.drag#' + id ).qtip({
                        content: '<strong>Turn Order</strong>:'+ token.turn_order +'<br /> <strong>HP</strong>:' + token.hp + '!',
                        style: {
                               name: 'dark' // Inherit from preset style
@@ -63,7 +67,7 @@ function load(size,table,query) {
 
 REDIPS.drag.myhandler_clicked = function () {
   var obj = REDIPS.drag.obj;
-  $("#"+obj.id).qtip('destroy');
+  //$(".drag#"+obj.id).qtip('destroy');
   clearTimeout(t);
 }
 

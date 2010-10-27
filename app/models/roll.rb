@@ -9,38 +9,9 @@ class Roll < ActiveRecord::Base
   
   validates_presence_of :character, :message => "is required"
   validates_presence_of :query, :message => "is required"
-  
-  ## Stores and represents a dice object: <any> number of <similarly faced> dice. (i.e: 5x20-sided dice.)
-  class Die
-    attr_accessor(:num_sides, :num_dice, :str_type)
+  validate :validate_dice_objects
 
-    ## Initializes a Die object to n-dice, with n-faces, of "damage-type."
-    def initialize(dice, sides, type)
-      begin
-        if (dice.to_i.class == Fixnum) && (sides.to_i.class == Fixnum) && (type.class == String)
-          @num_dice = dice.to_i
-          @num_sides = sides.to_i
-          @str_type = type
-        else
-          raise ArgumentError, "arguments were #{dice}, #{sides}, #{type} (dice,sides,type)"
-        end
-      end
-    end
-
-    ## Randomly populates a resultant array based on the Die object's initalized state.
-    ## * Will return [TOTAL, TYPE, [DIE_1_RESULT, DIE_2_RESULT, ...]]
-    def roll      
-      arr_results = [0, "", []]
-
-      (1..@num_dice).each do
-        num_temp_rand = rand(@num_sides) + 1
-        arr_results[0] += num_temp_rand
-        arr_results[2].push(num_temp_rand)
-      end
-      arr_results[1] = @str_type
-      return arr_results
-    end
-  end
+  before_save :populate_resultarray
 
   ## Parses query using specific regular expression
   # * The capturing groups are as follows:
@@ -68,17 +39,19 @@ class Roll < ActiveRecord::Base
   # This is the format that the RollsController#show view is expecting to parse.
   #
   ## The dice are created but <b>not rolled</b> until this action is finished.
-  def validate
-	@dice = parse_query(self.query)
-	if @dice.length < 1
-	  errors.add_to_base("Could not generate any dice from input query!")
-	  return false
-	else
+  def validate_dice_objects
+    @dice = parse_query(self.query)
+    if @dice.length < 1
+      errors.add_to_base("Could not generate any dice from input query!")
+      return false
+    else
       return true
     end
   end
-  
-  def before_save
+
+
+
+  def populate_resultarray
     #[[3, "standard", [3]], [7, "fire", [7]], ["4", "standard", ["4"]], ["8", "fire", ["8"]]]
     #query: "[1d4] + [1d8] is fire + 4 + 8 is fire"
     self.resultarray = []

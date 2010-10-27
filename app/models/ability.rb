@@ -16,7 +16,7 @@ class Ability
 
       #Character permissions
       can [:new, :create], Character
-      can [:update, :show], Character do |character|
+      can [:manage], Character do |character|
         #Only a specific user ID can update their character
         if character && character.user_id == user.id
           true
