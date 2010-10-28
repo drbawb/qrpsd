@@ -67,7 +67,7 @@ function load(size,table,query) {
 
 REDIPS.drag.myhandler_clicked = function () {
   var obj = REDIPS.drag.obj;
-  //$(".drag#"+obj.id).qtip('destroy');
+  $(".drag").qtip('destroy');
   clearTimeout(t);
 }
 
@@ -94,7 +94,7 @@ REDIPS.drag.myhandler_deleted = function () {
   var dobj = REDIPS.drag.obj; //ref to deleted object? (poke to inspect)
   var dmea = REDIPS.drag.marked_exception; //reff to marked exc array
   var dtcn = REDIPS.drag.target_cell.className; // ref to target cell cass name
-  var dsrc = REDIPS.drag.source_cell
+  var dsrc = REDIPS.drag.source_cell;
   $.ajax({
     type: "POST",
     url: ROOT_PATH + "tokens/" + dobj.id + ".js",

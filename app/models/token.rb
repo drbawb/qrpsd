@@ -1,7 +1,7 @@
 class Token < ActiveRecord::Base
     belongs_to :grid
     belongs_to :character
-
+    
     def find_above
       #Return the token above me
     end

@@ -37,6 +37,10 @@ class TokensController < ApplicationController
     @grid = @token.grid
     
     respond_to do |format|
+      @token = Token.new(:image_url => @token.image_url,
+                         :character => @token.character,
+                         :grid => @token.grid) if @token.tblrow.nil? || @token.tblcol.nil?
+      
       if can?(:update, @token) && @token.update_attributes(params[:token])
         flash[:notice] = 'Token was successfully updated.'
         format.html { redirect_to(grid_tokens_path(@grid)) }

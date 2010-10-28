@@ -7,7 +7,7 @@ class Campaign < ActiveRecord::Base
    
    
    protected
-      def validate
-         errors.add("user_id", "cannot be changed!") if (self.changed.include? "user_id") && (self.changes['user_id'][0].nil?) != TRUE
-      end
+    def validate
+       errors.add("user_id", "cannot be changed!") if (self.changed.include? "user_id") && (self.changes['user_id'][0].nil?) != TRUE
+    end
 end

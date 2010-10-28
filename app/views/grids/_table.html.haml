@@ -1,20 +1,28 @@
 - unplaced_tokens = @grid.unplaced
 - placed_tokens = @grid.placed #26*26 multidimensional array; 26 rows made of 26 columns
+- alphabet = [];
+- for i in 'A'..'Z'
+  - alphabet << i
 
-- x = 0; y = 0; placed_tokens.each do |row|
+-for x in 0..26
   %tr
-    -row.each do |col|
+    -for y in 0..26
       -xystring = "n_#{x}_#{y}"
-      -if col.class == Token
-        %td{:id => xystring}
-          %div{:id => "#{h col.id}", :class => 'drag' }
-            =image_tag("tokens/#{col.image_url}")
-      -elsif col.class == String
+      -if x == 0 && y == 0
         %td{:id => xystring, :class => 'mark'}
-          =h col
+          = "-"
+      -elsif x == 0
+        %td{:id => xystring, :class => 'mark'}
+          =h y
+      -elsif y == 0
+        %td{:id => xystring, :class => 'mark'}
+          =h alphabet[x-1]
+      -elsif placed_tokens.include?("#{x}_#{y}")
+        %td{:id => xystring}
+          %div{:id => "#{h placed_tokens["#{x}_#{y}"].id}", :class => 'drag' }
+            =image_tag("tokens/#{placed_tokens["#{x}_#{y}"].image_url}")
       -else
         %td{:id => xystring}
-      - y += 1
-    - x += 1; y = 0
+
 %script{:type => 'text/javascript'}
   REDIPS.drag.init()
