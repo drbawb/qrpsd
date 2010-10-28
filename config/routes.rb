@@ -9,7 +9,7 @@ Qrpsd3::Application.routes.draw do
   resources :characters, :has_many => [:sheets, :skills]
   resources :rolls
   resources :grids do
-    resources :tokens do
+  resources :tokens do
       member do
         put 'up' #move token up
         put 'down' #move token down

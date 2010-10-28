@@ -49,8 +49,6 @@ class Roll < ActiveRecord::Base
     end
   end
 
-
-
   def populate_resultarray
     #[[3, "standard", [3]], [7, "fire", [7]], ["4", "standard", ["4"]], ["8", "fire", ["8"]]]
     #query: "[1d4] + [1d8] is fire + 4 + 8 is fire"

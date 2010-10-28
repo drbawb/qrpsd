@@ -33,4 +33,10 @@ describe Roll do
     roll.save.should == true
     roll.resultarray.length.should == 4
   end
+
+  it "should not save a bad query" do
+    @char = mock_model(Character, :name => "test_character")
+    roll = Roll.new(:query => "[[1d4]]", :character => @char)
+    roll.valid?.should == false
+  end
 end

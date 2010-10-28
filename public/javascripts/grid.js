@@ -18,7 +18,7 @@
 */
 
 var t; //Placeholder for a timeout
-
+var testObj;
 function blank() { //[relies on jQuery - clears a table with the exception of it's top/left edge]
   $('.drag').qtip('destroy');
   $('#table2 tr:nth-child(n+2) td:nth-child(n+2)').each(function(index, Row) {
@@ -76,18 +76,18 @@ REDIPS.drag.myhandler_notmoved = function () {
 }
 
 REDIPS.drag.myhandler_dropped = function () {
-	var obj = REDIPS.drag.obj;						// reference to the dragged OBJect
-	var mea = REDIPS.drag.marked_exception;			// reference to the Marked Exception Array
-	var tcn = REDIPS.drag.target_cell;	// reference to the Target cell Class Name
-	var msg; // message text
-	// if the DIV element was placed on allowed cell, then make it a unmovable
-        // { secretsauce: save(obj.id, tcn.id) },
-
-	$.ajax({
-		type: "POST",
-		url: ROOT_PATH + "grids/" + GRID_ID + ".js",
-		data: { _method: 'PUT', secretsauce: save(obj.id, tcn.id) }
-	});
+  var obj = REDIPS.drag.obj; // reference to the dragged OBJect
+  var mea = REDIPS.drag.marked_exception;	// reference to the Marked Exception Array
+  var tcn = REDIPS.drag.target_cell; // reference to the Target cell Class Name
+  var msg; // message text
+  // if the DIV element was placed on allowed cell, then make it a unmovable
+  // { secretsauce: save(obj.id, tcn.id) },
+  $.ajax({
+    type: "POST",
+    url: ROOT_PATH + "grids/" + GRID_ID + "/tokens/" + obj.id + ".json",
+    dataType: 'json',
+    data: { _method: 'PUT', token: {tblrow: tcn.id.split("_")[1], tblcol: tcn.id.split("_")[2]} }
+  });
   t = setTimeout("repeatRefreshGrid()", 5000);
 }
 REDIPS.drag.myhandler_deleted = function () {

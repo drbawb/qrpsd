@@ -29,17 +29,22 @@ class TokensController < ApplicationController
       end
     end
   end
-
+  
+  # PUT /grids/:grid_id/tokens/:id
+  # params[:tblrow, :tblcol] => new x,y position
   def update
-    @grid = Grid.find(params[:grid_id])
-    @token = @grid.tokens.find(params[:id])
+    @token = Token.find(params[:id])
+    @grid = @token.grid
+    
     respond_to do |format|
-      if @token.update_attributes(params[:token])
+      if can?(:update, @token) && @token.update_attributes(params[:token])
         flash[:notice] = 'Token was successfully updated.'
         format.html { redirect_to(grid_tokens_path(@grid)) }
+        format.json { render :json => { :response => "ok" } }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
+        format.json { render :json => {:response => "fail" } }
         format.xml  { render :xml => @token.errors, :status => :unprocessable_entity }
       end
     end
@@ -52,7 +57,8 @@ class TokensController < ApplicationController
     @token.destroy if !(@token.nil?)
     render :nothing => true
   end
-
+  
+  
   #PUT /grids/:grid_id/tokens/:id/up
   def up
     @grid = Grid.find(params[:grid_id])

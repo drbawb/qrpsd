@@ -5,7 +5,6 @@ class GridsController < ApplicationController
   end
   
   def show
-    
     if request.xhr?
       @grid = Grid.find(params[:id], :include => :tokens)
     else
@@ -53,7 +52,7 @@ class GridsController < ApplicationController
   
   def update
     @grid = Grid.find(params[:id], :include => { :tokens => :character })
-	@tokens = @grid.tokens
+    @tokens = @grid.tokens
     @input = params[:secretsauce].split("_")
     if request.xhr?
 	  last_turn = @tokens.last.turn_order

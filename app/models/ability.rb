@@ -18,9 +18,9 @@ class Ability
       can [:new, :create], Character
       can [:manage], Character do |character|
         #Only a specific user ID can update their character
-        if character && character.user_id == user.id
+        if character.try(:user_id) == user.id
           true
-        elsif character && character.campaign.user_id == user.id
+        elsif character.try(:campaign) && character.try(:campaign).try(:user_id) == user.id
           true
         else
           false
@@ -28,15 +28,19 @@ class Ability
       end
 
       #Grid permissions
-      can [:test, :tablerefresh, :update], Grid
-      can :read, Grid do |grid|
-        (grid.campaign.user_id == user.id) || (grid.campaign.users.include? user)
+      #can [:test, :tablerefresh, :update], Grid
+      can [:read, :update], Grid do |grid|
+        (grid.try(:campaign).try(:user_id) == user.id) || (grid.try(:campaign).try(:users).include? user)
       end
       can [:create, :new], Grid
 
       #Token permissions
       can [:index, :up, :down], Token
+      can :update, Token do |token|
+        token.character.user_id == user.id || token.character.campaign.user_id == user.id
+      end
       can :index, Token, :grid
+
 
       #Roll permissions
       can [:show], Roll
