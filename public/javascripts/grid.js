@@ -97,7 +97,7 @@ REDIPS.drag.myhandler_deleted = function () {
   var dsrc = REDIPS.drag.source_cell;
   $.ajax({
     type: "POST",
-    url: ROOT_PATH + "tokens/" + dobj.id + ".js",
+    url: ROOT_PATH + 'grids/' + GRID_ID + "/tokens/" + dobj.id + ".js",
     data: { _method: 'DELETE', cell: dsrc.id }
   });
   
