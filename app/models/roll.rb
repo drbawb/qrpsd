@@ -42,7 +42,7 @@ class Roll < ActiveRecord::Base
   def validate_dice_objects
     @dice = parse_query(self.query)
     if @dice.length < 1
-      errors.add_to_base("Could not generate any dice from input query!")
+      errors.add(:base, "Could not generate any dice from input query!")
       return false
     else
       return true
