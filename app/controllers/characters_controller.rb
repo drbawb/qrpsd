@@ -64,11 +64,11 @@ class CharactersController < ApplicationController
   # PUT /characters/1.xml
   def update
     @character = Character.find(params[:id])
-    params[:character][:player_skills_attributes].delete_if do |key, val|
-      params[:character][:player_skills_attributes][key][:level] == ""
-    end unless params[:character][:player_skill_attributes].nil?
-
+    params[:character][:player_skills_attributes].delete_if do |key,val|
+      val[:level] == ""
+    end
     respond_to do |format|
+      logger.debug "character hash at save-time is \n #{params['character'].to_s} \n"
       if @character.update_attributes(params[:character])
         flash[:notice] = "Character successfully updated!"
         format.html { redirect_to(@character) }
