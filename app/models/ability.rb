@@ -4,6 +4,7 @@ class Ability
     #user ||= UserSession.new
     if user && user.role == 'admin'
       can :manage, :all
+	  can :index, Token
     elsif user && user.role == 'user'
       #User is logged in
       #The user CAN:
@@ -35,11 +36,19 @@ class Ability
       can [:create, :new], Grid
 
       #Token permissions
-      can [:index, :up, :down], Token
+      
+      ## View grid_tokens, adjust turn order
+      can [:index, :up, :down], Token do |token|
+        token.try(:character).try(:campaign).user_id == user.id
+      end
+
+      ## Adjust token tblrow/tblcol (x,y position)
       can :update, Token do |token|
         token.character.user_id == user.id || token.character.campaign.user_id == user.id
       end
-      can :index, Token, :grid
+
+      ## Create base tokens; adjust turn order.
+      can [:new, :create, :update_turn_order], Token, :grid => {:campaign => {:user_id => user.id} }
 
 
       #Roll permissions

@@ -97,29 +97,29 @@ REDIPS.drag.myhandler_deleted = function () {
   var dsrc = REDIPS.drag.source_cell;
   $.ajax({
     type: "POST",
-    url: ROOT_PATH + "tokens/" + dobj.id + ".js",
+    url: ROOT_PATH + 'grids/' + GRID_ID + "/tokens/" + dobj.id + ".js",
     data: { _method: 'DELETE', cell: dsrc.id }
   });
   
   t = setTimeout("repeatRefreshGrid()", 5000);
 }
 
-  function repeatRefreshGrid() {
-    $.ajax({
-      url: ROOT_PATH + 'grids/' + GRID_ID + '.js',
-      dataType: "text",
-      success: function(data) {
-        reloadGrid(data);
-      }
-    });
-    t = setTimeout("repeatRefreshGrid()", 5000);
-  }
-  
-  function reloadGrid(data) {
-    blank();
-    load('26', 'table2', data);
-    REDIPS.drag.init();
-  }
+function repeatRefreshGrid() {
+  $.ajax({
+    url: ROOT_PATH + 'grids/' + GRID_ID + '.js',
+    dataType: "text",
+    success: function(data) {
+      reloadGrid(data);
+    }
+  });
+  t = setTimeout("repeatRefreshGrid()", 5000);
+}
+
+function reloadGrid(data) {
+  blank();
+  load('26', 'table2', data);
+  REDIPS.drag.init();
+}
 
 $(document).ready(function() {
   repeatRefreshGrid();

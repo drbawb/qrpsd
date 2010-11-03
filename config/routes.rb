@@ -16,7 +16,7 @@ Qrpsd3::Application.routes.draw do
       end
     end
   end
-  resources :tokens
+  #resources :tokens
   resources :users
   match 'about', :to => 'home#about'
 

@@ -1,4 +1,11 @@
 class TokensController < ApplicationController
+  load_and_authorize_resource :grid
+  load_and_authorize_resource :token, :through => :grid
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    render :text => "#{exception.action}", :status => 403
+  end
+  
   def index
     @grid = Grid.find(params[:grid_id])
     @tokens = @grid.tokens.where('tokens.tblrow IS NOT NULL AND tokens.tblcol IS NOT NULL').order('turn_order').find(:all, :include => :character)
@@ -35,13 +42,26 @@ class TokensController < ApplicationController
   def update
     @token = Token.find(params[:id])
     @grid = @token.grid
-    
+    @last_token = Token.where("grid_id = ? AND turn_order IS NOT NULL", @grid.id).order("turn_order DESC").first
     respond_to do |format|
       @token = Token.new(:image_url => @token.image_url,
                          :character => @token.character,
                          :grid => @token.grid) if @token.tblrow.nil? || @token.tblcol.nil?
-      
-      if can?(:update, @token) && @token.update_attributes(params[:token])
+      if request.xhr?
+        @token.attributes = {:tblrow => params[:token][:tblrow], :tblcol => params[:token][:tblcol]}
+        if @last_token.nil?
+          @token.turn_order = 1
+        else
+          @token.turn_order = @last_token.turn_order + 1
+          logger.debug "last token was #{@last_token.inspect}"
+        end
+      else
+        if can?(:update_turn_order, @token)
+          @token.update_attributes(params[:token])
+        end
+      end
+
+      if @token.save
         flash[:notice] = 'Token was successfully updated.'
         format.html { redirect_to(grid_tokens_path(@grid)) }
         format.json { render :json => { :response => "ok" } }

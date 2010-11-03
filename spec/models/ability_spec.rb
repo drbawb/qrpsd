@@ -125,6 +125,7 @@ describe Ability do
       @char = mock_model(Character, :user_id => @user.id, :user => @user, :campaign => @camp)
       @grid = mock_model(Grid, :campaign => @camp, :campaign_id => @camp.id)
       @token = mock_model(Token, :tblrow => 2, :tblcol => 3, :character => @char)
+      @token.stub!(:grid).and_return(@grid)
       @user_out = mock_model(User, :role => "user")
 
       a = Ability.new(@user)
@@ -135,5 +136,49 @@ describe Ability do
       a2.can?(:update, @token).should be_true
       a3.can?(:update, @token).should be_false
     end
+
+  it "should only let a gm adjust turn_order" do
+      @gm = mock_model(User, :role => "user")
+      @camp = mock_model(Campaign, :user_id => @gm.id, :user => @gm)
+
+      @user = mock_model(User, :role => "user")
+      @char = mock_model(Character, :user_id => @user.id, :user => @user, :campaign => @camp)
+      @grid = mock_model(Grid, :campaign => @camp, :campaign_id => @camp.id)
+      @token = mock_model(Token, :tblrow => 2, :tblcol => 3, :character => @char)
+      @token.stub!(:grid).and_return(@grid)
+      @user_out = mock_model(User, :role => "user")
+
+      a = Ability.new(@user)
+      a2 = Ability.new(@gm)
+      a3 = Ability.new(@user_out)
+
+      a.can?(:update_turn_order, @token).should be_false
+      a2.can?(:update_turn_order, @token).should be_true
+      a3.can?(:update_turn_order, @token).should be_false
+  end
+
+  it "should only let a gm create a base token" do
+          @gm = mock_model(User, :role => "user")
+      @camp = mock_model(Campaign, :user_id => @gm.id, :user => @gm)
+
+      @user = mock_model(User, :role => "user")
+      @char = mock_model(Character, :user_id => @user.id, :user => @user, :campaign => @camp)
+      @grid = mock_model(Grid, :campaign => @camp, :campaign_id => @camp.id)
+      @token = mock_model(Token, :tblrow => 2, :tblcol => 3, :character => @char)
+      @token.stub!(:grid).and_return(@grid)
+      @user_out = mock_model(User, :role => "user")
+
+      a = Ability.new(@user)
+      a2 = Ability.new(@gm)
+      a3 = Ability.new(@user_out)
+
+      a.can?(:create, @token).should be_false
+      a2.can?(:create, @token).should be_true
+      a3.can?(:create, @token).should be_false
+      a.can?(:new, @token).should be_false
+      a2.can?(:new, @token).should be_true
+      a3.can?(:new, @token).should be_false
+  end
+
   ## Users
 end
