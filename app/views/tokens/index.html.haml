@@ -5,10 +5,10 @@ Listing all placed tokens for grid, in turn-order:
 %br
 =link_to "New Base Token", new_grid_token_path(@grid,Token.new)
 %table{:border => "1px"}
-  -@tokens.each do |token|
+  -@tokens.each_with_index do |token,index|
     %tr
       %td
-        ="#{token.character.name} at (#{token.tblrow},#{token.tblcol}) turn order: #{token.turn_order}"
+        ="#{token.character.name} at (#{token.tblrow},#{token.tblcol}) turn order: #{index + 1}"
         %br
           =form_for([@grid, token]) do |f|
             =f.text_field :hp, :size => "5"
