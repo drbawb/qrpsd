@@ -95,19 +95,25 @@ class CharactersController < ApplicationController
 
   private
   def stub_player_skills
-    #ps = @character.player_skills.build(:skill_id => skill.id, :name => skill.name) if skill_exists.empty?
-    @skills = Skill.find(:all)
-
-    skill_ids = @skills.map { |x| x.id }
-    ps_ids = @character.player_skills.map { |x| x.skill.id }
-
-    stub_ids = skill_ids - ps_ids #Returns array of skill ID #'s that the player doesn't have
-    deselected_skills = @skills.select { |i| stub_ids.include? i.id } #Returns array of Skill objects that the player doesn't have
-
-    deselected_skills.each do |skill|
-      ps = @character.player_skills.build(:skill_id => skill.id, :name => skill.name) #Builds a PlayerSkill for each deselected skill
-    end
-
-    @skill_arr = @character.player_skills.map { |el| el.name.nil? ? el.skill.name : el.name } #Maps it to an array so the view doesn't iterate over 9000+ skills!
+		#@skills = Skill.where("id NOT IN (SELECT skill_id FROM player_skills WHERE character_id = ?)", @character.id)
+		@skills = Skill.deselected(@character.id)
+		@skills.each do |skill|
+			ps = @character.player_skills.build(:skill_id => skill.id, :name => skill.name) #Builds a PlayerSkill for each deselected skill
+		end
+		@skill_arr = @character.player_skills.map { |el| el.name.nil? ? el.skill.name : el.name } #Maps it to an array so the view doesn't iterate over 9000+ skill objects, will not eager-load for some reason :'( !
+  end
+  
+  def old_stub_player_skills
+		@skills = Skill.find(:all) # Grab all skills
+		ps_ids = @character.player_skills.map { |x| x.skill_id }
+		skill_ids = @skills.map { |x| x.id }
+		
+		@skills.each do |skill|
+			unless ps_ids.include? (skill.id)
+				ps = @character.player_skills.build(:skill_id => skill.id, :name => skill.name) #Builds a PlayerSkill for each deselected skill
+			end
+		end
+		
+		@skill_arr = @character.player_skills.map { |el| el.name.nil? ? el.skill.name : el.name } #Maps it to an array so the view doesn't iterate over 9000+ skill objects, will not eager-load for some reason :'( !
   end
 end

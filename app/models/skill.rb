@@ -4,4 +4,6 @@ class Skill < ActiveRecord::Base
   
   accepts_nested_attributes_for :player_skills
   attr_accessible :name, :description
+	
+	named_scope :deselected, lambda { |*args| {:conditions => ["id NOT IN (SELECT skill_id FROM player_skills WHERE character_id = ?)", (args.first)]} }
 end
