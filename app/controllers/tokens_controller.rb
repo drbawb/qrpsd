@@ -42,21 +42,24 @@ class TokensController < ApplicationController
   def update
     @token = Token.find(params[:id])
     @grid = @token.grid
-    #@last_token = Token.where("grid_id = ? AND turn_order IS NOT NULL", @grid.id).order("turn_order DESC").first
-    @last_token = Token.where("grid_id = ?", @grid.id).maximum(:turn_order)
-    respond_to do |format|
+	
+    if @token.tblrow.nil? || @token.tblcol.nil?
       @token = Token.new(:image_url => @token.image_url,
-                         :character => @token.character,
-                         :grid => @token.grid) if @token.tblrow.nil? || @token.tblcol.nil?
-      if request.xhr?
-        @token.attributes = {:tblrow => params[:token][:tblrow], :tblcol => params[:token][:tblcol]}
-        @last_token.nil? ? @token.turn_order = 1 : @token.turn_order = @last_token + 1
-      else
-        if can?(:update_turn_order, @token)
-          @token.update_attributes(params[:token])
-        end
+      :character => @token.character,
+      :grid => @token.grid)
+      @last_token = Token.where("grid_id = ? AND tblrow IS NOT NULL", @grid.id).maximum(:turn_order)
+      @last_token.nil? ? @token.turn_order = 1 : @token.turn_order = @last_token + 1
+    end
+    
+    if request.xhr?
+      @token.attributes = {:tblrow => params[:token][:tblrow], :tblcol => params[:token][:tblcol]}
+    else
+      if can?(:update_turn_order, @token)
+        @token.update_attributes(params[:token])
       end
-
+    end
+	
+    respond_to do |format|
       if @token.save
         flash[:notice] = 'Token was successfully updated.'
         format.html { redirect_to(grid_tokens_path(@grid)) }

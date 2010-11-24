@@ -86,8 +86,13 @@ REDIPS.drag.myhandler_dropped = function () {
     type: "POST",
     url: ROOT_PATH + "grids/" + GRID_ID + "/tokens/" + obj.id + ".json",
     dataType: 'json',
-    data: { _method: 'PUT', token: {tblrow: tcn.id.split("_")[1], tblcol: tcn.id.split("_")[2]} }
+    data: { _method: 'PUT', token: {tblrow: tcn.id.split("_")[1], tblcol: tcn.id.split("_")[2]} },
+    complete: function(req, status) {
+      repeatRefreshGrid();
+      //t = setTimeout("repeatRefreshGrid()", 350);
+    }
   });
+  
   t = setTimeout("repeatRefreshGrid()", 5000);
 }
 REDIPS.drag.myhandler_deleted = function () {

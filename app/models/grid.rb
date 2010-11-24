@@ -5,14 +5,12 @@ class Grid < ActiveRecord::Base
     def tablerefresh
       i = 0
       result = []
-      tokens = self.tokens.order("turn_order ASC")
-      tokens << tokens.shift # 0th token, counter-intuitively, belongs at end of stack
-      
+      tokens = self.tokens.order("turn_order ASC").where("tblrow IS NOT NULL")
       tokens.each_with_index { |token, index|
          if token.tblrow.nil? == FALSE
             token_image = token.image_url
             #json_result = "{'id': '#{token.id}', 'image': #{token_image}, 'tblrow': '#{token.tblrow}', 'tblcol': '#{token.tblcol}', 'turn_order': '#{token.turn_order}', 'hp': '99'}"
-            json_result = {:id => token.id, :image => token_image, :tblrow => token.tblrow, :tblcol => token.tblcol, :turn_order => index + 1, :hp => token.hp}
+            json_result = {:id => token.id, :image => token_image, :tblrow => token.tblrow, :tblcol => token.tblcol, :turn_order => token.turn_order, :hp => token.hp}
             #temp_result = "#{token.id}_#{token_image}_#{token.tblrow}_#{token.tblcol}_#{token.turn_order}_#{token.hp}"
             result << json_result
          end
