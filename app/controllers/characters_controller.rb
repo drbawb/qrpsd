@@ -95,12 +95,11 @@ class CharactersController < ApplicationController
 
   private
   def stub_player_skills
-		#@skills = Skill.where("id NOT IN (SELECT skill_id FROM player_skills WHERE character_id = ?)", @character.id)
 		@skills = Skill.deselected(@character.id)
 		@skills.each do |skill|
 			ps = @character.player_skills.build(:skill_id => skill.id, :name => skill.name) #Builds a PlayerSkill for each deselected skill
 		end
-		@skill_arr = @character.player_skills.map { |el| el.name.nil? ? el.skill.name : el.name } #Maps it to an array so the view doesn't iterate over 9000+ skill objects, will not eager-load for some reason :'( !
+		@skill_arr = @character.player_skills.map { |el| el.name.nil? ? el.skill.name : el.name } #Maps old + stubbed player skills to an array so the view can iterate without generating n-queries. 
   end
   
   def old_stub_player_skills
