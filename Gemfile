@@ -1,11 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql', '2.8.1'
+gem 'passenger'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'cancan'
 gem 'haml'
@@ -14,8 +15,6 @@ gem 'paperclip'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'warden'
 gem 'devise'
-
-
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -38,3 +37,11 @@ gem 'devise'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+## Testing
+gem 'rspec-rails', '~> 2.4'
+gem 'json'
+gem 'redgreen'
+gem 'autotest'
+gem 'autotest-rails'
+gem 'factory_girl_rails'

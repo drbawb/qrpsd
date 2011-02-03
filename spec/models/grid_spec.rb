@@ -35,10 +35,15 @@ describe Grid do
       @base_token = stub_model(Token, :grid => @grid, :grid_id => @grid, :character => @char)
       @normal_token = stub_model(Token, :grid => @grid, :grid_id => @grid, :tblrow => 3, :tblcol => 4, :character => @char)
       @grid = stub_model(Grid, :tokens => [@base_token,@normal_token])
-
-      placed = @grid.placed.flatten
-      placed.include?("#{@normal_token.tblrow}_#{@normal_token.tblcol}").should be_true
-      placed.include?("#{@base_token.tblrow}_#{@base_token.tblcol}").should be_false
+      
+      ## Code has been refactored to use a hash
+      placed = @grid.placed
+      placed["#{@normal_token.tblrow}_#{@normal_token.tblcol}"].should_not be_nil
+      placed["#{@base_token.tblrow}_#{@base_token.tblcol}"].should be_nil
+      
+      #placed = @grid.placed.flatten
+      #placed.include?("#{@normal_token.tblrow}_#{@normal_token.tblcol}").should be_true
+      #placed.include?("#{@base_token.tblrow}_#{@base_token.tblcol}").should be_false
     end
   end
 end

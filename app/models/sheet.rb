@@ -6,7 +6,7 @@ class Sheet < ActiveRecord::Base
 	
 	has_attached_file :sheet,
   	:path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension",
-	:url => ":rel_path/system/:attachment/:id/:style/:basename.:extension" #subdirectory hack 
+	  :url => ":rel_path/system/:attachment/:id/:style/:basename.:extension" #subdirectory hack 
  	
 	validates_attachment_presence :sheet
 	validates_attachment_content_type :sheet, :content_type => ['application/pdf', 'image/jpeg', 'image/png', 'image/gif']

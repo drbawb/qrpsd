@@ -1,3 +1,13 @@
--@rolls.each do |roll|
-  =roll.resultarray[0][0] unless roll.resultarray[0].nil?
-  %br
+="Welcome to #{@user.username}'s page!"
+%br
+="#{@user.username} owns the following characters: "
+%br
+-@user.characters.each do |character|
+	=link_to "#{character.name}", character_path(character)
+	
+%br
+The user is part of the following campaigns:
+%ul
+	-@user.campaigns.each do |campaign|
+		%li
+			=campaign.title
