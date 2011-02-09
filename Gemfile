@@ -40,8 +40,6 @@ gem 'devise'
 
 ## Testing
 gem 'rspec-rails', '~> 2.4'
-gem 'json'
-gem 'redgreen'
-gem 'autotest'
-gem 'autotest-rails'
 gem 'factory_girl_rails'
+gem 'redgreen'
+gem 'spork'
