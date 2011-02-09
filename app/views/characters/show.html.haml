@@ -19,13 +19,14 @@
   =h @character.user.username
 
 -unless @character.skills.empty?
-  %b
+  %h3
     Skills: 
     %br
   -@character.player_skills.each do |plskill|
     %b
-      =h "#{plskill.skill.name}" 
-      %br
+      %u
+        =h "#{plskill.skill.name}" 
+        %br
     -unless plskill.level.nil?
       =h "You have this skill at level #{plskill.level}"
       %br
