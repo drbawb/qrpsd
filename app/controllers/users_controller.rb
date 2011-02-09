@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
-	
+  
 	load_and_authorize_resource
   def index
     @users = User.all
@@ -16,8 +16,9 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id], :include => :rolls)
-	@rolls = @user.rolls	
-	respond_to do |format|
+	  @rolls = @user.rolls	
+	
+	  respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
     end
@@ -45,7 +46,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 		@user.role = 'user'
 		if @user.save
-			flash[:notice] = "Registration is great success! :-)"
+			flash[:notice] = "Registration was successful!"
 			redirect_to root_url
 		else
 			render :action => 'new'
